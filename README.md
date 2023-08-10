@@ -1,43 +1,44 @@
-# deepstream-django-check_web
-# 本项目结合多方源码实现基于web的实时目标检测系统，系统采用python3.6+deepstream5.1+django2.0实现目标检测人流、车流计数任务，实现内容如下：
-1. 分时段计数统计
-2. 数据可视化展示
-3. 监控画面实时显示、截图抓拍、平台显示
-4. 数据下载
-5. 设备状态查看
-6. 用户权限管理
+# DeepStream Django Real-Time Object Detection System with Web Interface
 
-## 设计思路
-采用jetson设备边缘部署方式，以每一个边缘设备为节点进行数据采集和监控处理，如图所示:
-![image](https://user-images.githubusercontent.com/40747806/135811095-ab259816-7da2-49ea-b38f-843762691041.png)
+This project combines various sources to create a real-time object detection system based on the web. The system utilizes Python 3.6+, DeepStream 5.1, and Django 2.0 to achieve object detection tasks for counting pedestrian and vehicle flows. The implemented features include:
 
-## 如何使用
-### 1. 安装
-1、后台需要按照requirements.txt文件下载对应安装包，执行pip install -r ./requirements.txt，如果网速太慢可添加国内源下载，如：pip install -r ./requriements.txt -i https://mirrors.aliyun.com/pypi/simple
+1. Counting and statistics based on time periods.
+2. Data visualization display.
+3. Real-time display of monitoring images, screenshot capture, and platform display.
+4. Data download functionality.
+5. Device status viewing.
+6. User authentication and permissions management.
 
-2、边缘端需下载deepstream>=5.0(因本项目全部采用python3.6开发，因此需deepstream升级至5.0或更高版本，下载deepstream需注意与其对应的jetpack版本！)
+## Design Approach
+The project adopts edge deployment using Jetson devices. Each edge device serves as a node for data collection and monitoring processing, as shown in the following diagram:
+![Image](https://user-images.githubusercontent.com/40747806/135811095-ab259816-7da2-49ea-b38f-843762691041.png)
 
-3、作者在jetson设备桌面配置了一键启动脚本，拿到jetson端源码后可直接双击运行
+## How to Use
+### 1. Installation
+1. For the backend, install the required packages using the `requirements.txt` file by executing `pip install -r ./requirements.txt`. If the internet connection is slow, you can add a local source for downloading, for example: `pip install -r ./requirements.txt -i https://mirrors.aliyun.com/pypi/simple`
 
-### 2. 启动
-1、先启动后台django程序，注释掉django rbac中间件，然后查看rbac文件夹下的文档说明.py文件进行配置，保证能够创建用户并进入系统，然后配置属于自己的初始化数据例如：用户、权限等内容，能够正常使用后再开启rbac中间件，配置jetson设备信息以及需要接入的前端摄像头的、rtsp地址或者其他流媒体地址（！一定是先创建jetson设备，然后再创建前端拉流信息等后续内容！）。
+2. For the edge devices, download DeepStream version 5.0 or higher (since this project is developed using Python 3.6, ensure that DeepStream is upgraded to version 5.0 or above, and make sure it's compatible with your JetPack version).
 
-2、在settings文件同级目录下创建local_settings文件，配置路由、校验秘钥等信息用于jetson设备和django通信，配置设备监控信息，用于平台侧检测边缘端设备工作情况。
+3. The author has provided a one-click startup script on the Jetson device desktop. After obtaining the source code for the Jetson device, you can double-click to run it.
 
-3、后台能够正常运行后，双击前端jetson设备的桌面一键启动按钮，先启动server服务，然后启动project服务，能够看见弹出框并且正常运行即可。
+### 2. Startup
+1. Start the Django backend program. Initially, comment out the Django RBAC middleware. Then, refer to the documentation in the `rbac` folder to configure the system. Make sure you can create users and access the system. Configure your own initial data, such as users and permissions. After confirming that everything works, enable the RBAC middleware. Configure the Jetson device information and the frontend camera streams, RTSP URLs, or other media stream addresses (Remember to create the Jetson device first before adding frontend streaming information and other subsequent details).
 
-4、观察后台检测到的前端平台运行情况及视频监控流媒体调用情况，若均正常，启动完毕
+2. Create a `local_settings` file in the same directory as the `settings` file. Configure routes, verification keys, and other information required for communication between the Jetson devices and Django. Configure device monitoring information for the platform to track the working status of edge devices.
 
-### 功能截图
-![screenshot-127 0 0 1_8000-2021 10 04-15_07_03](https://user-images.githubusercontent.com/40747806/135811154-7f8d59e9-669d-4311-ac43-7db687a3efb3.png)
+3. Once the backend is running smoothly, double-click the one-click startup button on the frontend Jetson device. Start the server service first, then start the project service. You should see a popup window indicating that the services are running smoothly.
 
-![screenshot-127 0 0 1_8000-2021 10 04-15_07_21](https://user-images.githubusercontent.com/40747806/135811268-f0e5a311-eadb-431f-8414-878c9e7313d7.png)
+4. Monitor the backend for the status of frontend platform operations and video streaming usage. If everything is functioning correctly, the startup process is complete.
 
-![screenshot-127 0 0 1_8000-2021 10 04-15_07_47](https://user-images.githubusercontent.com/40747806/135811126-f041fb71-dca3-413e-9fe9-1b4f55f3c33b.png)
+### Function Screenshots
+![Screenshot 1](https://user-images.githubusercontent.com/40747806/135811154-7f8d59e9-669d-4311-ac43-7db687a3efb3.png)
 
-### 如需帮助
-可联系作者获取sqlite3.db，直接进入系统使用
-如需使用mysql等数据库或不会操作，可联系作者邮箱：18981275647@189.cn
+![Screenshot 2](https://user-images.githubusercontent.com/40747806/135811268-f0e5a311-eadb-431f-8414-878c9e7313d7.png)
 
-### 感谢
-https://github.com/WuPeiqi
+![Screenshot 3](https://user-images.githubusercontent.com/40747806/135811126-f041fb71-dca3-413e-9fe9-1b4f55f3c33b.png)
+
+### Need Help?
+You can contact the author to obtain the `sqlite3.db` file and directly access the system. If you need to use databases like MySQL or are unfamiliar with certain operations, you can contact the author via email: `18981275647@189.cn`
+
+### Acknowledgments
+Special thanks to [WuPeiqi](https://github.com/WuPeiqi).
